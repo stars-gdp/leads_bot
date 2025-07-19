@@ -1,0 +1,35 @@
+greeting: Cześć! Jestem wirtualnym asystentem i pomogę Ci wybrać sposób dołączenia do naszego projektu online
+about_project: To międzynarodowy projekt online firmy B:HIP z USA, działającej od ponad 15 lat. Oferujemy dwie realne możliwości zarobku i pełny kurs marketingu internetowego, który możesz odbyć niezależnie od udziału w projekcie
+dropshipping: "Dropshipping to:\n
+- sprzedaż produktów przez social media i reklamy w krajach z gotową logistyką\n
+- lub sprzedaż zdalna z krajów, gdzie logistyka jeszcze nie działa, ale rynek jest otwarty"
+direct_sales: Sprzedaż bezpośrednia oznacza sprzedaż produktów w swoim kraju, gdzie działa już logistyka
+marketing_course: "Pełny kurs 'Marketing internetowy':\n
+- darmowy bonus dla partnerów\n
+- 50% zniżki dla małych firm\n
+- 100$ pełna cena dla pozostałych"
+two_ways: Projekt oferuje dwa sposoby zarabiania. Kliknij, aby dowiedzieć się więcej
+pro_program: "Inwestycja 1000$ daje:\n
+- osobisty ID i link polecający\n
+- własny sklep online z 13 produktami\n
+- do 30% prowizji ze sprzedaży\n
+- możliwość zapraszania partnerów (jednorazowy bonus 100$)\n
+- dostęp do 7 rodzajów prowizji\n
+- gotowe narzędzia do promocji w social media"
+small_business: "Dołączenie za roczną opłatą 50$.\n
+Przez 90 dni otrzymujesz:\n
+- osobisty ID i sklep z 13 produktami\n
+- 15% prowizji ze sprzedaży\n
+- brak możliwości zakupu dla siebie i zapraszania partnerów\n
+- sprzedaj wszystkie 13 produktów — status automatycznie zmienia się na PRO"
+last_step: Jeśli jesteś zainteresowany, prześlij dane do bota, a nasz menedżer się z Tobą skontaktuje
+buttons:
+  back: Wstecz
+  next: Dalej
+  about_project: O Projekcie
+  dropshipping: Dropshipping
+  direct_sales: Sprzedaż Bezpośrednia
+  marketing_course: Kurs Marketingu
+  pro_program: Program PRO
+  small_business: Mały Biznes
+  contact_me: Skontaktuj się przez WhatsApp/Telegram
