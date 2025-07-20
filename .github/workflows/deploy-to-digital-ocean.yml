@@ -1,0 +1,70 @@
+name: Deploy to Digital Ocean
+
+on:
+  push:
+    branches: [ master ]  # Using master branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'  # Adjust to your Node.js version
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build  # Using Yarn for build
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add host key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H 143.244.134.91 >> ~/.ssh/known_hosts
+
+      - name: Deploy to Digital Ocean
+        run: |
+          # Directory should already exist and be owned by crmuser
+          
+          # Copy build folder
+          rsync -avz --delete ./build/ crmuser@143.244.134.91:/var/www/leads_bot/build/
+          
+          # Copy config files
+          scp ecosystem.config.cjs crmuser@143.244.134.91:/var/www/leads_bot/
+          scp package.json crmuser@143.244.134.91:/var/www/leads_bot/
+          scp .nvmrc crmuser@143.244.134.91:/var/www/leads_bot/
+          
+          # Install production dependencies on server using Yarn with correct Node version
+          ssh crmuser@143.244.134.91 'cd /var/www/leads_bot && export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm use 22 && yarn install --production'
+
+      - name: Generate .env file
+        run: |
+          rm -rf .env
+          # Create an empty env file
+          touch .env
+          
+          # Add each environment variable
+          echo "BOT_TOKEN=${{ secrets.LEADS_BOT_TOKEN }}" >> production.env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> production.env
+          echo "DATABASE_PORT=${{ secrets.DATABASE_PORT }}" >> production.env
+          echo "DATABASE_USER=${{ secrets.DATABASE_USER }}" >> production.env
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> production.env
+          echo "DATABASE_NAME=gdp" >> production.env
+          
+          # Copy the generated file to server
+          scp .env crmuser@143.244.134.91:/var/www/leads_bot/
+      - name: Restart pm2
+        run: |
+          # Restart PM2 service if it exists (with correct Node version)
+          ssh crmuser@143.244.134.91 'cd /var/www/leads_bot && export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm use 22 && [ -f ecosystem.config.cjs ] && pm2 reload ecosystem.config.cjs || pm2 start ecosystem.config.cjs'
