@@ -55,12 +55,12 @@ jobs:
           touch .env
           
           # Add each environment variable
-          echo "BOT_TOKEN=${{ secrets.LEADS_BOT_TOKEN }}" >> production.env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> production.env
-          echo "DATABASE_PORT=${{ secrets.DATABASE_PORT }}" >> production.env
-          echo "DATABASE_USER=${{ secrets.DATABASE_USER }}" >> production.env
-          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> production.env
-          echo "DATABASE_NAME=gdp" >> production.env
+          echo "BOT_TOKEN=${{ secrets.LEADS_BOT_TOKEN }}" >> .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "DATABASE_PORT=${{ secrets.DATABASE_PORT }}" >> .env
+          echo "DATABASE_USER=${{ secrets.DATABASE_USER }}" >> .env
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
+          echo "DATABASE_NAME=gdp" >> .env
           
           # Copy the generated file to server
           scp .env crmuser@143.244.134.91:/var/www/leads_bot/
